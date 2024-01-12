@@ -1,31 +1,46 @@
 from dataclasses import dataclass
-from datetime import datetime
+import csv
 from typing import List
 
 
 @dataclass
 class Transaction:
-    merchant_name_description: str
-    amount: float
-    # date_and_time:
+    def __init__(self, posting_date, description, amount, balance):
+        self.posting_date = posting_date
+        self.description = description
+        self.amount = amount
+        self.balance = balance
 
 
-# class Transaction:
-#     def __init__(self, merchant_name_description, amount):
-#         self.merchant_name_description = merchant_name_description
-#         self.amount = amount
-
-
-class BankStatement:
+class FinancialReport:
     def __init__(self):
-        self.transactions: List[Transaction] = []
+        self.statement: List[Transaction] = []
 
-    def import_statement(self, csv_filepath: str):
-        with open(csv_filepath) as statements:
-            for transaction in statements:
-                self.transactions.append(transaction)
+    def import_statement(self, csv_filepath: str):  # Open and create list
+        with open(csv_filepath, "r") as statements:
+            csvreader = csv.reader(statements)
+            rows = []
+            for row in csvreader:
+                rows.append(row)
+            self.statement.append(rows)
 
 
-# bank_statement = BankStatement()
-# bank_statement.import_statement("./bankstatement.csv")
-# print("Number of transactions: {}".format(len(bank_statement.transactions)))
+class Chase(FinancialReport):
+    def __init__(self):
+        super().__init__()
+
+    def format_bank_statement(self):
+        for x in self.statement:
+            for y in x:
+                y.pop(0)  # Remove Detail Column
+                y.pop(3)  # Remove Type Column
+                y.pop(4)  # Remove Check or Slip Column
+        return self.statement
+
+    def format_credit_card(self):
+        for x in self.statement:
+            for y in x:
+                y.pop(1)  # Remove Post Date
+                y.pop(-1)  # Remove White Space
+                y.pop(-2)  # Remove Type
+        return self.statement
