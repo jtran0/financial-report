@@ -30,17 +30,17 @@ class Chase(FinancialReport):
         super().__init__()
 
     def format_bank_statement(self):
-        for x in self.statement:
-            for y in x:
-                y.pop(0)  # Remove Detail Column
-                y.pop(3)  # Remove Type Column
-                y.pop(4)  # Remove Check or Slip Column
+        for transactions in self.statement:
+            for transaction in transactions:
+                transaction.pop(0)  # Remove Detail Column
+                transaction.pop(3)  # Remove Type Column
+                transaction.pop(4)  # Remove Check or Slip Column
         return self.statement
 
     def format_credit_card(self):
-        for x in self.statement:
-            for y in x:
-                y.pop(1)  # Remove Post Date
-                y.pop(-1)  # Remove White Space
-                y.pop(-2)  # Remove Type
+        for transactions in self.statement:
+            for transaction in transactions:
+                transaction.pop(1)  # Remove Post Date
+                transaction.pop(-1)  # Remove White Space
+                transaction.pop(-2)  # Remove Type
         return self.statement
