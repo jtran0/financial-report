@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List
 import transaction
-import csv
 
 
 class TransactionParser(ABC):
@@ -13,16 +12,18 @@ class TransactionParser(ABC):
     def __init__(self):
         self.statement: List[transaction.Transaction] = []
 
+    @abstractmethod
     def parse_statement(self, statement_filepath: str):
-        with open(statement_filepath, "r") as statements:
-            csvreader = csv.DictReader(statements)
-            for row in csvreader:
-                # Create a Transaction object using keyword assignments with default values
-                transaction_obj = transaction.Transaction(
-                    posting_date=row.get("posting_date", "default_posting_date"),
-                    description=row.get("description", "default_description"),
-                    amount=float(row.get("amount", 0.0)),
-                    balance=float(row.get("balance", 0.0)),
-                    category=row.get("category", "default_category"),
-                )
-                self.statement.append(transaction_obj)
+        raise NotImplementedError
+
+    def print_transactions(self):
+        lines = []
+        for transaction_obj in self.statement:
+            lines.append(f"Transaction Date: {transaction_obj.trasanction_date}")
+            lines.append(f"Posting Date: {transaction_obj.posting_date}")
+            lines.append(f"Description: {transaction_obj.description}")
+            lines.append(f"Amount: {transaction_obj.amount}")
+            lines.append(f"Balance: {transaction_obj.amount}")
+            lines.append(f"Category: {transaction_obj.category}")
+            lines.append("")
+        print("\n".join(lines))
