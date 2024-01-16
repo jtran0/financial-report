@@ -3,7 +3,7 @@ import transaction
 import csv
 
 
-class ChaseTransactionParser(transaction_parser.TransactionParser):
+class AmericanExpressTransactionParser(transaction_parser.TransactionParser):
     def __init__(self):
         super().__init__()
 
@@ -14,7 +14,7 @@ class ChaseTransactionParser(transaction_parser.TransactionParser):
                 # Create a Transaction object using keyword assignments with default values
                 transaction_obj = transaction.Transaction(
                     trasanction_date=row.get("Transaction Date", ""),
-                    posting_date=row.get("Posting Date", ""),
+                    posting_date=row.get("Date", ""),
                     description=row.get("Description", ""),
                     amount=float(row.get("Amount", 0.0)),
                     balance=float(row.get("Balance", 0.0)),
