@@ -23,7 +23,7 @@ class TransactionParser(ABC):
             lines.append(f"Posting Date: {transaction_obj.posting_date}")
             lines.append(f"Description: {transaction_obj.description}")
             lines.append(f"Amount: {transaction_obj.amount}")
-            lines.append(f"Balance: {transaction_obj.amount}")
+            lines.append(f"Balance: {transaction_obj.balance}")
             lines.append(f"Category: {transaction_obj.category}")
             lines.append("")
         print("\n".join(lines))
