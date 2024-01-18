@@ -1,9 +1,10 @@
-import transaction_parser
-import transaction
 import csv
 
+from transaction_parser.transaction_parser import TransactionParser
+from transaction_parser.transaction import Transaction
 
-class ChaseTransactionParser(transaction_parser.TransactionParser):
+
+class ChaseTransactionParser(TransactionParser):
     def __init__(self):
         super().__init__()
 
@@ -12,8 +13,8 @@ class ChaseTransactionParser(transaction_parser.TransactionParser):
             csvreader = csv.DictReader(statements)
             for row in csvreader:
                 # Create a Transaction object using keyword assignments with default values
-                transaction_obj = transaction.Transaction(
-                    trasanction_date=row.get("Transaction Date", ""),
+                transaction_obj = Transaction(
+                    transaction_date=row.get("Transaction Date", ""),
                     posting_date=row.get("Posting Date", ""),
                     description=row.get("Description", ""),
                     amount=float(row.get("Amount", 0.0)),

@@ -4,7 +4,7 @@ from transaction_parser.transaction_parser import TransactionParser
 from transaction_parser.transaction import Transaction
 
 
-class AmericanExpressTransactionParser(TransactionParser):
+class CitiTransactionParser(TransactionParser):
     def __init__(self):
         super().__init__()
 
@@ -14,10 +14,10 @@ class AmericanExpressTransactionParser(TransactionParser):
             for row in csvreader:
                 # Create a Transaction object using keyword assignments with default values
                 transaction_obj = Transaction(
-                    transaction_date=row.get("Transaction Date", ""),
-                    posting_date=row.get("Date", ""),
+                    transaction_date=row.get("Date", ""),
+                    posting_date=row.get("Posting Date", ""),
                     description=row.get("Description", ""),
-                    amount=float(row.get("Amount", 0.0)),
+                    amount=row.get("Debit", 0.0),
                     balance=float(row.get("Balance", 0.0)),
                     category=row.get("Category", ""),
                 )
