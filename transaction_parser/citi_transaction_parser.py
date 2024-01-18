@@ -4,7 +4,7 @@ from transaction_parser.transaction_parser import TransactionParser
 from transaction_parser.transaction import Transaction
 
 
-class ChaseTransactionParser(TransactionParser):
+class CitiTransactionParser(TransactionParser):
     def __init__(self):
         super().__init__()
 
@@ -14,12 +14,14 @@ class ChaseTransactionParser(TransactionParser):
             for row in csvreader:
                 # Create a Transaction object using keyword assignments with default values
                 transaction_obj = Transaction(
-                    transaction_date=row.get("Transaction Date", ""),
+                    transaction_date=row.get("Date", ""),
                     posting_date=row.get("Posting Date", ""),
                     description=row.get("Description", ""),
-                    amount=float(row.get("Amount", 0.0)),
+                    amount=row.get("Debit", 0.0),
                     balance=float(row.get("Balance", 0.0)),
                     category=row.get("Category", ""),
+                    debit=row.get("Debit", 0.0),
+                    credit=row.get("Credit", 0.0),
                 )
                 self.statement.append(transaction_obj)
 
@@ -29,8 +31,7 @@ class ChaseTransactionParser(TransactionParser):
             lines.append(f"Transaction Date: {transaction_obj.transaction_date}")
             lines.append(f"Posting Date: {transaction_obj.posting_date}")
             lines.append(f"Description: {transaction_obj.description}")
-            lines.append(f"Amount: {transaction_obj.amount}")
-            lines.append(f"Balance: {transaction_obj.balance}")
-            lines.append(f"Category: {transaction_obj.category}")
+            lines.append(f"Debit: {transaction_obj.debit}")
+            lines.append(f"Credit: {transaction_obj.credit}")
             lines.append("")
         print("\n".join(lines))

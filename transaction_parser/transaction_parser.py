@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
-import transaction
+
+from transaction_parser.transaction import Transaction
 
 
 class TransactionParser(ABC):
@@ -10,20 +11,12 @@ class TransactionParser(ABC):
     """
 
     def __init__(self):
-        self.statement: List[transaction.Transaction] = []
+        self.statement: List[Transaction] = []
 
     @abstractmethod
     def parse_statement(self, statement_filepath: str):
         raise NotImplementedError
 
+    @abstractmethod
     def print_transactions(self):
-        lines = []
-        for transaction_obj in self.statement:
-            lines.append(f"Transaction Date: {transaction_obj.trasanction_date}")
-            lines.append(f"Posting Date: {transaction_obj.posting_date}")
-            lines.append(f"Description: {transaction_obj.description}")
-            lines.append(f"Amount: {transaction_obj.amount}")
-            lines.append(f"Balance: {transaction_obj.balance}")
-            lines.append(f"Category: {transaction_obj.category}")
-            lines.append("")
-        print("\n".join(lines))
+        raise NotImplementedError
