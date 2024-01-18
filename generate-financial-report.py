@@ -6,6 +6,9 @@ from pathlib import Path
 from transaction_parser.chase_transaction_parser import ChaseTransactionParser
 from transaction_parser.amex_transaction_parser import AmericanExpressTransactionParser
 from transaction_parser.citi_transaction_parser import CitiTransactionParser
+from transaction_parser.wells_fargo_transaction_parser import (
+    WellsFargoTransactionParser,
+)
 
 DESCRIPTION = """\
 Generate a financial report
@@ -53,6 +56,10 @@ def main():
             citi_transaction_parser = CitiTransactionParser()
             citi_transaction_parser.parse_statement(filepath)
             citi_transaction_parser.print_transactions()
+        elif bank == "wellsfargo":
+            wells_fargo_transaction_parser = WellsFargoTransactionParser()
+            wells_fargo_transaction_parser.parse_statement(filepath)
+            wells_fargo_transaction_parser.print_transactions()
         print("-------------------------------------------")
 
 
