@@ -1,6 +1,6 @@
 Hi this is a read me document requested by Mr. Mickey Huang
 
-I will be updating this txt file to show you how to use this program.
+I will be updating this file to show you how to use this program.
 
 # Example usage
 ./financial-tracker.py -h

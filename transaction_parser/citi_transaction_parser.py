@@ -17,7 +17,7 @@ class CitiTransactionParser(TransactionParser):
                     transaction_date=row.get("Date", ""),
                     posting_date=row.get("Posting Date", ""),
                     description=row.get("Description", ""),
-                    amount=row.get("Debit", 0.0),
+                    amount=row.get("Amount", 0.0),
                     balance=float(row.get("Balance", 0.0)),
                     category=row.get("Category", ""),
                     debit=row.get("Debit", 0.0),
