@@ -17,14 +17,6 @@ class TransactionParser(ABC):
     def parse_statement(self, statement_filepath: str):
         raise NotImplementedError
 
+    @abstractmethod
     def print_transactions(self):
-        lines = []
-        for transaction_obj in self.statement:
-            lines.append(f"Transaction Date: {transaction_obj.transaction_date}")
-            lines.append(f"Posting Date: {transaction_obj.posting_date}")
-            lines.append(f"Description: {transaction_obj.description}")
-            lines.append(f"Amount: {transaction_obj.amount}")
-            lines.append(f"Balance: {transaction_obj.balance}")
-            lines.append(f"Category: {transaction_obj.category}")
-            lines.append("")
-        print("\n".join(lines))
+        raise NotImplementedError

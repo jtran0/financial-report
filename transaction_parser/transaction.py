@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import List
 
 
 @dataclass
@@ -11,6 +10,8 @@ class Transaction:
         description="",
         amount=0.0,
         balance=0.0,
+        debit=0.0,
+        credit=0.0,
         category="",
     ):
         self.transaction_date = transaction_date
@@ -19,3 +20,5 @@ class Transaction:
         self.amount = amount
         self.balance = balance
         self.category = category
+        self.debit = debit
+        self.credit = credit
