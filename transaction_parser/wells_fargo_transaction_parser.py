@@ -5,7 +5,7 @@ from transaction_parser.transaction import Transaction
 
 
 class WellsFargoTransactionParser(TransactionParser):
-    def __init__(sefl):
+    def __init__(self):
         super().__init__()
 
     def parse_statement(self, statement_filepath: str):
@@ -21,6 +21,7 @@ class WellsFargoTransactionParser(TransactionParser):
                 self.statement.append(transaction_obj)
 
     def print_transactions(self):
+        """Only Used for test purposes"""
         lines = []
         for transaction_obj in self.statement:
             lines.append(f"Transaction Date: {transaction_obj.transaction_date}")

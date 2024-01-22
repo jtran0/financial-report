@@ -26,6 +26,7 @@ class CitiTransactionParser(TransactionParser):
                 self.statement.append(transaction_obj)
 
     def print_transactions(self):
+        """Only Used for test purposes"""
         lines = []
         for transaction_obj in self.statement:
             lines.append(f"Transaction Date: {transaction_obj.transaction_date}")
