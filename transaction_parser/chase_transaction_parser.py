@@ -7,6 +7,7 @@ from transaction_parser.transaction import Transaction
 class ChaseTransactionParser(TransactionParser):
     def __init__(self):
         super().__init__()
+        self.balance = 0.0
 
     def parse_statement(self, statement_filepath: str):
         with open(statement_filepath, "r") as statements:
@@ -35,3 +36,10 @@ class ChaseTransactionParser(TransactionParser):
             lines.append(f"Category: {transaction_obj.category}")
             lines.append("")
         print("\n".join(lines))
+
+    def get_balance(self):
+        for transaction_obj in self.statement:
+            if transaction_obj.amount:
+                self.balance += transaction_obj.amount
+        print(self.balance)
+        return self.balance

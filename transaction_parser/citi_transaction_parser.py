@@ -7,6 +7,7 @@ from transaction_parser.transaction import Transaction
 class CitiTransactionParser(TransactionParser):
     def __init__(self):
         super().__init__()
+        self.balance = 0.0
 
     def parse_statement(self, statement_filepath: str):
         with open(statement_filepath, "r") as statements:
@@ -36,3 +37,13 @@ class CitiTransactionParser(TransactionParser):
             lines.append(f"Credit: {transaction_obj.credit}")
             lines.append("")
         print("\n".join(lines))
+
+    def get_balance(self):
+        self.balance = 0.0
+        for transaction_obj in self.statement:
+            if transaction_obj.debit:
+                self.balance += float(transaction_obj.debit)
+            if transaction_obj.credit:
+                self.balance += float(transaction_obj.credit)
+        print(self.balance)
+        return self.balance

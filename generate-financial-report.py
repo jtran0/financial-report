@@ -51,23 +51,27 @@ def main():
         if bank == "chase":
             chase_transaction_parser = ChaseTransactionParser()
             chase_transaction_parser.parse_statement(filepath)
-            chase_transaction_parser.print_transactions()
-            report_generator.generate_report(chase_transaction_parser.statement)
+            # chase_transaction_parser.print_transactions()
+            # chase_transaction_parser.get_balance()
+            report_generator.import_transaction(chase_transaction_parser.statement)
         elif bank == "amex":
             amex_transaction_parser = AmericanExpressTransactionParser()
             amex_transaction_parser.parse_statement(filepath)
-            amex_transaction_parser.print_transactions()
-            report_generator.generate_report(amex_transaction_parser.statement)
+            # amex_transaction_parser.print_transactions()
+            report_generator.import_transaction(amex_transaction_parser.statement)
         elif bank == "citi":
             citi_transaction_parser = CitiTransactionParser()
             citi_transaction_parser.parse_statement(filepath)
-            citi_transaction_parser.print_transactions()
-            report_generator.generate_report(citi_transaction_parser.statement)
+            # citi_transaction_parser.print_transactions()
+            # citi_transaction_parser.get_balance()
+            report_generator.import_transaction(citi_transaction_parser.statement)
         elif bank == "wellsfargo":
             wells_fargo_transaction_parser = WellsFargoTransactionParser()
             wells_fargo_transaction_parser.parse_statement(filepath)
-            wells_fargo_transaction_parser.print_transactions()
-            report_generator.generate_report(wells_fargo_transaction_parser.statement)
+            # wells_fargo_transaction_parser.print_transactions()
+            report_generator.import_transaction(
+                wells_fargo_transaction_parser.statement
+            )
 
     report_generator.print_report()
 
