@@ -41,5 +41,4 @@ class ChaseTransactionParser(TransactionParser):
         for transaction_obj in self.statement:
             if transaction_obj.amount:
                 self.balance += transaction_obj.amount
-        print(self.balance)
         return self.balance

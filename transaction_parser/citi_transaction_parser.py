@@ -45,5 +45,4 @@ class CitiTransactionParser(TransactionParser):
                 self.balance += float(transaction_obj.debit)
             if transaction_obj.credit:
                 self.balance += float(transaction_obj.credit)
-        print(self.balance)
         return self.balance
