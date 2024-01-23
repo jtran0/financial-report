@@ -19,4 +19,5 @@ class TransactionParser(ABC):
 
     @abstractmethod
     def print_transactions(self):
+        """Only Used for test purposes"""
         raise NotImplementedError
