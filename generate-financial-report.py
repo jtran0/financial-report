@@ -9,7 +9,6 @@ from transaction_parser.citi_transaction_parser import CitiTransactionParser
 from transaction_parser.wells_fargo_transaction_parser import (
     WellsFargoTransactionParser,
 )
-from report_generator.report import Report
 from report_generator.report_generator import ReportGenerator
 
 DESCRIPTION = """\
@@ -51,24 +50,19 @@ def main():
         if bank == "chase":
             chase_transaction_parser = ChaseTransactionParser()
             chase_transaction_parser.parse_statement(filepath)
-            report_generator.import_transaction(chase_transaction_parser.statement)
-            report_generator.generate_report(chase_transaction_parser.statement)
+            report_generator.import_transactions(chase_transaction_parser.statement)
         elif bank == "amex":
             amex_transaction_parser = AmericanExpressTransactionParser()
             amex_transaction_parser.parse_statement(filepath)
-            report_generator.import_transaction(amex_transaction_parser.statement)
+            report_generator.import_transactions(amex_transaction_parser.statement)
         elif bank == "citi":
             citi_transaction_parser = CitiTransactionParser()
             citi_transaction_parser.parse_statement(filepath)
-            report_generator.import_transaction(citi_transaction_parser.statement)
         elif bank == "wellsfargo":
             wells_fargo_transaction_parser = WellsFargoTransactionParser()
             wells_fargo_transaction_parser.parse_statement(filepath)
-            report_generator.import_transaction(
-                wells_fargo_transaction_parser.statement
-            )
 
-    # report_generator.print_report()
+    report_generator.generate_report()
 
 
 if __name__ == "__main__":

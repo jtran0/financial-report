@@ -7,7 +7,6 @@ from transaction_parser.transaction import Transaction
 class CitiTransactionParser(TransactionParser):
     def __init__(self):
         super().__init__()
-        self.balance = 0.0
 
     def parse_statement(self, statement_filepath: str):
         with open(statement_filepath, "r") as statements:
@@ -39,15 +38,3 @@ class CitiTransactionParser(TransactionParser):
                     credit=credit_value,
                 )
                 self.statement.append(transaction_obj)
-
-    def print_transactions(self):
-        """Only Used for test purposes"""
-        lines = []
-        for transaction_obj in self.statement:
-            lines.append(f"Transaction Date: {transaction_obj.transaction_date}")
-            lines.append(f"Posting Date: {transaction_obj.posting_date}")
-            lines.append(f"Description: {transaction_obj.description}")
-            lines.append(f"Debit: {transaction_obj.debit}")
-            lines.append(f"Credit: {transaction_obj.credit}")
-            lines.append("")
-        print("\n".join(lines))

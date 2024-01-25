@@ -16,8 +16,3 @@ class TransactionParser(ABC):
     @abstractmethod
     def parse_statement(self, statement_filepath: str):
         raise NotImplementedError
-
-    @abstractmethod
-    def print_transactions(self):
-        """Only Used for test purposes"""
-        raise NotImplementedError
