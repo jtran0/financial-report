@@ -14,6 +14,20 @@ class CitiTransactionParser(TransactionParser):
             csvreader = csv.DictReader(statements)
             for row in csvreader:
                 # Create a Transaction object using keyword assignments with default values
+                debit_value = row.get("Debit", "")
+                credit_value = row.get("Credit", "")
+
+                # Convert non-numeric strings to 0.0
+                try:
+                    debit_value = float(debit_value)
+                except ValueError:
+                    debit_value = 0.0
+
+                try:
+                    credit_value = float(credit_value)
+                except ValueError:
+                    credit_value = 0.0
+
                 transaction_obj = Transaction(
                     transaction_date=row.get("Date", ""),
                     posting_date=row.get("Posting Date", ""),
@@ -21,8 +35,8 @@ class CitiTransactionParser(TransactionParser):
                     amount=row.get("Amount", 0.0),
                     balance=float(row.get("Balance", 0.0)),
                     category=row.get("Category", ""),
-                    debit=row.get("Debit", 0.0),
-                    credit=row.get("Credit", 0.0),
+                    debit=debit_value,
+                    credit=credit_value,
                 )
                 self.statement.append(transaction_obj)
 
@@ -37,12 +51,3 @@ class CitiTransactionParser(TransactionParser):
             lines.append(f"Credit: {transaction_obj.credit}")
             lines.append("")
         print("\n".join(lines))
-
-    def get_balance(self):
-        self.balance = 0.0
-        for transaction_obj in self.statement:
-            if transaction_obj.debit:
-                self.balance += float(transaction_obj.debit)
-            if transaction_obj.credit:
-                self.balance += float(transaction_obj.credit)
-        return self.balance
