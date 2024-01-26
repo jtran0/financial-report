@@ -1,38 +1,26 @@
-from report_generator.report import Report
 from typing import List
+from transaction_parser.transaction_parser import Transaction
 
 
 class ReportGenerator:
-    def __init__(self):
-        self.reports: List[Report] = []
+    def __init__(self) -> None:
+        self.transactions: List[Transaction] = []
 
-    def import_transaction(self, transactions):
-        liabilities = 0.0
-        cash_balance = 0.0
+    def import_transactions(self, transactions: List[Transaction]):
+        self.transactions += transactions
 
-        for transaction_obj in reversed(transactions):
-            if transaction_obj.amount:
-                liabilities += transaction_obj.amount
-            if transaction_obj.balance:
-                cash_balance = transaction_obj.balance
-                print(cash_balance)
+    def generate_expense_report(self):
+        total_income = 0
+        total_expense = 0
+        for transaction in self.transactions:
+            if transaction.amount > 0:
+                total_income += transaction.amount
+            else:
+                total_expense += transaction.amount
+        lines = [
+            f"Total income: {round(total_income, 2)}",
+            f"Total expense: {round(total_expense, 2)}",
+            f"Net: {round(total_income + total_expense, 2)}",
+        ]
 
-        net_worth = cash_balance - liabilities
-
-        report = Report(
-            net_worth=net_worth, cash_balance=cash_balance, liabilities=liabilities
-        )
-
-        self.reports.append(report)
-
-    def print_report(self):
-        if self.reports:
-            total_liabilities = sum(report.liabilities for report in self.reports)
-
-            total_cash_balance = sum(report.cash_balance for report in self.reports)
-
-            total_net_worth = sum(report.net_worth for report in self.reports)
-
-            print(f"Debt: {total_liabilities}")
-            print(f"Cash: {total_cash_balance}")
-            print(f"Net Worth: {total_net_worth}")
+        print("\n".join(lines))
