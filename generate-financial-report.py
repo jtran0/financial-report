@@ -46,7 +46,7 @@ def main():
     report_generator = ReportGenerator()
 
     for bank, filepath in args.input:
-        print(bank, filepath)
+        print(f"Imported: {bank}, {filepath}")
         if bank == "chase":
             chase_transaction_parser = ChaseTransactionParser()
             chase_transaction_parser.parse_statement(filepath)
@@ -62,7 +62,23 @@ def main():
             wells_fargo_transaction_parser = WellsFargoTransactionParser()
             wells_fargo_transaction_parser.parse_statement(filepath)
 
-    report_generator.generate_report()
+    report_generator.generate_checking_account_report()
+    while True:
+        print("\nPlease select the number for the category you want to see")
+
+        selection = input(
+            "1.Shopping Expense / 2.Restaurant Expense / 3.Entertainment Expense or type 'quit' to exit\n"
+        ).lower()
+        if selection == "1":
+            report_generator.generate_shopping_expense()
+        elif selection == "2":
+            report_generator.generate_restaurant_expense()
+        elif selection == "3":
+            report_generator.generate_entertainment_expense()
+        elif selection == "quit":
+            break
+        else:
+            print("\nNot a selection please try again.")
 
 
 if __name__ == "__main__":
