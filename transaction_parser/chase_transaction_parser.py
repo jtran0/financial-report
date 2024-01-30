@@ -18,5 +18,6 @@ class ChaseTransactionParser(TransactionParser):
                     description=row.get("Description", ""),
                     amount=float(row.get("Amount", 0.0)),
                     category=row.get("Category", ""),
+                    type=row.get("Type", ""),
                 )
                 self.statement.append(transaction_obj)
