@@ -1,6 +1,7 @@
 from report_generator.report_generator import ReportGenerator
 from transaction_parser.chase_transaction_parser import ChaseTransactionParser
 from transaction_parser.amex_transaction_parser import AmericanExpressTransactionParser
+from transaction_parser.citi_transaction_parser import CitiTransactionParser
 
 
 class TestAccount:
@@ -47,3 +48,14 @@ class TestAccount:
         report.filter_transations()
         assert report.total_expense == -593.00
         assert report.ignore_payment == 1400.00
+
+    def test_citi_credit_card(self):
+        report = ReportGenerator()
+        citi_transaction_parser = CitiTransactionParser()
+        citi_transaction_parser.parse_statement(
+            "test_files/Citi_Credit_Card_Sample.csv"
+        )
+        report.import_transactions(citi_transaction_parser.statement)
+        report.filter_transations()
+        assert report.total_expense == 0
+        assert report.ignore_payment == -1500.00
