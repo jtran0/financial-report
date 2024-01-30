@@ -6,9 +6,7 @@ class TestAccount:
     def test_chase_checking(self):
         report = ReportGenerator()
         chase_transaction_parser = ChaseTransactionParser()
-        chase_transaction_parser.parse_statement(
-            "financial-report/test_files/TestCheckingAcc.csv"
-        )
+        chase_transaction_parser.parse_statement("test_files/TestCheckingAcc.csv")
         report.import_transactions(chase_transaction_parser.statement)
         report.generate_expense_report()
         assert report.total_expense == -7000.00
