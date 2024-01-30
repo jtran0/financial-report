@@ -7,7 +7,6 @@ from transaction_parser.transaction import Transaction
 class ChaseTransactionParser(TransactionParser):
     def __init__(self):
         super().__init__()
-        self.balance = 0.0
 
     def parse_statement(self, statement_filepath: str):
         with open(statement_filepath, "r") as statements:
