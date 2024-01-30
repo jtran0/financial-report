@@ -39,4 +39,8 @@ class ReportGenerator:
                 self.ignore_payment += transaction.amount
             if "sale" in transaction.type.lower():
                 self.total_expense += transaction.amount
+            if "merchandise" in transaction.category.lower():
+                self.total_expense += transaction.amount
+            if "restaurant" in transaction.category.lower():
+                self.total_expense += transaction.amount
         return self.total_income, self.total_expense, self.ignore_payment

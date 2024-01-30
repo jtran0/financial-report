@@ -12,7 +12,6 @@ class CitiTransactionParser(TransactionParser):
         with open(statement_filepath, "r") as statements:
             csvreader = csv.DictReader(statements)
             for row in csvreader:
-                # Create a Transaction object using keyword assignments with default values
                 debit_value = row.get("Debit", "")
                 credit_value = row.get("Credit", "")
 
