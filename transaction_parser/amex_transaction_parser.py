@@ -12,12 +12,10 @@ class AmericanExpressTransactionParser(TransactionParser):
         with open(statement_filepath, "r") as statements:
             csvreader = csv.DictReader(statements)
             for row in csvreader:
-                # Create a Transaction object using keyword assignments with default values
                 transaction_obj = Transaction(
                     transaction_date=row.get("Date", ""),
                     description=row.get("Description", ""),
-                    amount=float(row.get("Amount", 0.0)),
-                    balance=float(row.get("Balance", 0.0)),
+                    amount=-float(row.get("Amount", 0.0)),
                     category=row.get("Category", ""),
                 )
                 self.statement.append(transaction_obj)

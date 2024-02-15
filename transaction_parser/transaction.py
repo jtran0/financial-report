@@ -13,6 +13,7 @@ class Transaction:
         debit=0.0,
         credit=0.0,
         category="",
+        type="",
     ):
         self.transaction_date = transaction_date
         self.posting_date = posting_date
@@ -22,3 +23,4 @@ class Transaction:
         self.category = category
         self.debit = debit
         self.credit = credit
+        self.type = type
