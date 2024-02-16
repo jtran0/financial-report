@@ -1,6 +1,7 @@
 from typing import List
-from transaction_parser.transaction_parser import Transaction
+from transaction_parser.transaction import Transaction
 from rules_manager.transaction_rules import TransactionRules
+from rules_manager.rule_manager import RulesManager
 
 
 class ReportGenerator:
@@ -13,6 +14,7 @@ class ReportGenerator:
         self.total_expense = 0.0
         self.total_income = 0.0
         self.ignore_payment = 0.0
+        self.rules_manager = RulesManager()
 
     def import_transactions(self, transactions: List[Transaction]):
         """
@@ -24,7 +26,8 @@ class ReportGenerator:
         """
         Apply transaction rules to categorize transactions.
         """
-        for transaction in self.transactions:
+        filtered_transactions = self.rules_manager.apply_rules(self.transactions)
+        for transaction in filtered_transactions:
             if TransactionRules.is_income(transaction):
                 self.total_income += transaction.amount
             elif TransactionRules.is_payment(transaction):
