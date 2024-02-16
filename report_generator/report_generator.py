@@ -1,11 +1,11 @@
 from typing import List
 from transaction_parser.transaction_parser import Transaction
+from rules_manager.transaction_rules import TransactionRules
 
 
 class ReportGenerator:
     """
-    This class is responsible for filtering and generating
-    a report from a collection of imported csv statments.
+    This class generates a report based on filtered lists of transactions.
     """
 
     def __init__(self) -> None:
@@ -16,31 +16,20 @@ class ReportGenerator:
 
     def import_transactions(self, transactions: List[Transaction]):
         """
-        Store and accumulate lists of transaction
-        objects for filtering
+        Store and accumulate lists of transaction objects for filtering.
         """
         self.transactions += transactions
 
-    def filter_transations(self):
+    def filter_transactions(self):
         """
-        Scan for key words
-        in attributes of the transaction object
-        and add them to the Report Generator
-        class attributes.
+        Apply transaction rules to categorize transactions.
         """
         for transaction in self.transactions:
-            if "payroll" in transaction.description.lower():
+            if TransactionRules.is_income(transaction):
                 self.total_income += transaction.amount
-            if "atm" in transaction.description.lower():
-                self.total_income += transaction.amount
-            if "auto" in transaction.description.lower():
+            elif TransactionRules.is_payment(transaction):
                 self.ignore_payment += transaction.amount
-            if "Payment" in transaction.type.lower():
-                self.ignore_payment += transaction.amount
-            if "sale" in transaction.type.lower():
+            elif TransactionRules.is_expense(transaction):
                 self.total_expense += transaction.amount
-            if "merchandise" in transaction.category.lower():
-                self.total_expense += transaction.amount
-            if "restaurant" in transaction.category.lower():
-                self.total_expense += transaction.amount
+
         return self.total_income, self.total_expense, self.ignore_payment

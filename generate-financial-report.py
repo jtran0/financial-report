@@ -61,7 +61,7 @@ def main():
         elif bank == "wellsfargo":
             wells_fargo_transaction_parser = WellsFargoTransactionParser()
             wells_fargo_transaction_parser.parse_statement(filepath)
-    report_generator.filter_transations()
+    report_generator.filter_transactions()
 
 
 if __name__ == "__main__":
