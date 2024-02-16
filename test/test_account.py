@@ -12,7 +12,7 @@ class TestAccount:
             "test/test_files/Test_ChaseCheckingAcc.csv"
         )
         report.import_transactions(chase_transaction_parser.statement)
-        report.filter_transations()
+        report.filter_transactions()
         assert report.ignore_payment == -7000
         assert report.total_income == 2300.00
 
@@ -23,7 +23,7 @@ class TestAccount:
             "test/test_files/Chase_CreditCard_Test_Sample.csv"
         )
         report.import_transactions(chase_transaction_parser.statement)
-        report.filter_transations()
+        report.filter_transactions()
         assert report.total_expense == -981
         assert report.ignore_payment == 1300
 
@@ -37,7 +37,7 @@ class TestAccount:
             "test/test_files/Chase_CreditCard_Test_Sample.csv"
         )
         report.import_transactions(chase_transaction_parser.statement)
-        report.filter_transations()
+        report.filter_transactions()
         assert report.ignore_payment == -5700.00
         assert report.total_income == 2300.00
         assert report.total_expense == -981
@@ -49,7 +49,7 @@ class TestAccount:
             "test/test_files/Amex_Credit_Card_Sample.csv"
         )
         report.import_transactions(amex_transaction_parser.statement)
-        report.filter_transations()
+        report.filter_transactions()
         assert report.total_expense == -593.00
         assert report.ignore_payment == 1400.00
 
@@ -60,6 +60,6 @@ class TestAccount:
             "test/test_files/Citi_Credit_Card_Sample.csv"
         )
         report.import_transactions(citi_transaction_parser.statement)
-        report.filter_transations()
+        report.filter_transactions()
         assert report.total_expense == 0
         assert report.ignore_payment == -1500.00
