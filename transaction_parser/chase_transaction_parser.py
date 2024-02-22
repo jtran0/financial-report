@@ -14,7 +14,8 @@ class ChaseTransactionParser(TransactionParser):
             for row in csvreader:
                 # Create a Transaction object using keyword assignments with default values
                 transaction_obj = Transaction(
-                    transaction_date=row.get("Date", ""),
+                    posting_date=row.get("Posting Date", ""),
+                    transaction_date=row.get("Transaction Date", ""),
                     description=row.get("Description", ""),
                     amount=float(row.get("Amount", 0.0)),
                     category=row.get("Category", ""),

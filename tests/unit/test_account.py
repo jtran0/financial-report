@@ -8,9 +8,7 @@ class TestAccount:
     def test_chase_checking(self):
         report = ReportGenerator()
         chase_transaction_parser = ChaseTransactionParser()
-        chase_transaction_parser.parse_statement(
-            "test/test_files/Test_ChaseCheckingAcc.csv"
-        )
+        chase_transaction_parser.parse_statement("test_files/Test_ChaseCheckingAcc.csv")
         report.import_transactions(chase_transaction_parser.statement)
         report.filter_transactions()
         assert report.ignore_payment == -7000
@@ -20,7 +18,7 @@ class TestAccount:
         report = ReportGenerator()
         chase_transaction_parser = ChaseTransactionParser()
         chase_transaction_parser.parse_statement(
-            "test/test_files/Chase_CreditCard_Test_Sample.csv"
+            "test_files/Chase_CreditCard_Test_Sample.csv"
         )
         report.import_transactions(chase_transaction_parser.statement)
         report.filter_transactions()
@@ -30,11 +28,9 @@ class TestAccount:
     def test_chase_checking_and_credit(self):
         report = ReportGenerator()
         chase_transaction_parser = ChaseTransactionParser()
+        chase_transaction_parser.parse_statement("test_files/Test_ChaseCheckingAcc.csv")
         chase_transaction_parser.parse_statement(
-            "test/test_files/Test_ChaseCheckingAcc.csv"
-        )
-        chase_transaction_parser.parse_statement(
-            "test/test_files/Chase_CreditCard_Test_Sample.csv"
+            "test_files/Chase_CreditCard_Test_Sample.csv"
         )
         report.import_transactions(chase_transaction_parser.statement)
         report.filter_transactions()
@@ -46,7 +42,7 @@ class TestAccount:
         report = ReportGenerator()
         amex_transaction_parser = AmericanExpressTransactionParser()
         amex_transaction_parser.parse_statement(
-            "test/test_files/Amex_Credit_Card_Sample.csv"
+            "test_files/Amex_Credit_Card_Sample.csv"
         )
         report.import_transactions(amex_transaction_parser.statement)
         report.filter_transactions()
@@ -57,7 +53,7 @@ class TestAccount:
         report = ReportGenerator()
         citi_transaction_parser = CitiTransactionParser()
         citi_transaction_parser.parse_statement(
-            "test/test_files/Citi_Credit_Card_Sample.csv"
+            "test_files/Citi_Credit_Card_Sample.csv"
         )
         report.import_transactions(citi_transaction_parser.statement)
         report.filter_transactions()
