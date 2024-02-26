@@ -16,9 +16,9 @@ class ReportGenerator:
         self.total_income = 0.0
         self.ignore_payment = 0.0
         self.net = 0.0
-        self.is_income: List[Transaction] = []
-        self.is_expense: List[Transaction] = []
-        self.is_payment: List[Transaction] = []
+        self.income: List[Transaction] = []
+        self.expense: List[Transaction] = []
+        self.payments: List[Transaction] = []
         self.rules_manager = RulesManager()
 
     def import_transactions(self, transactions: List[Transaction]):
@@ -37,13 +37,13 @@ class ReportGenerator:
         for transaction in filtered_transactions:
             if TransactionRules.is_income(transaction):
                 self.total_income += transaction.amount
-                self.is_income.append(transaction)
+                self.income.append(transaction)
             elif TransactionRules.is_payment(transaction):
                 self.ignore_payment += transaction.amount
-                self.is_payment.append(transaction)
+                self.payments.append(transaction)
             elif TransactionRules.is_expense(transaction):
                 self.total_expense += transaction.amount
-                self.is_expense.append(transaction)
+                self.expense.append(transaction)
         self.net = self.total_income + self.total_expense
 
         return self.total_income, self.total_expense, self.ignore_payment
@@ -73,7 +73,7 @@ class ReportGenerator:
         """
         expense_statement = PrettyTable()
         expense_statement.title = "Expenses"
-        for transaction in self.is_expense:
+        for transaction in self.expense:
             expense_statement.field_names = [
                 "Date",
                 "Description",
@@ -90,7 +90,7 @@ class ReportGenerator:
                     f"{transaction.type}",
                 ]
             )
-        print(expense_statement)
+        return expense_statement
 
     def generate_income(self):
         """
@@ -98,7 +98,7 @@ class ReportGenerator:
         """
         income_statement = PrettyTable()
         income_statement.title = "Income"
-        for transaction in self.is_income:
+        for transaction in self.income:
             income_statement.field_names = [
                 "Date",
                 "Description",
@@ -115,7 +115,7 @@ class ReportGenerator:
                     f"{transaction.type}",
                 ]
             )
-        print(income_statement)
+        return income_statement
 
     def generate_net(self):
         """
@@ -125,7 +125,7 @@ class ReportGenerator:
         net = PrettyTable()
         net.field_names = ["Total Income", "Total Expense", "Net"]
         net.add_row([f"{self.total_income}", f"{self.total_expense}", f"{self.net}"])
-        print(net)
+        return net
 
     def generate_payments(self):
         """
@@ -133,7 +133,7 @@ class ReportGenerator:
         """
         payment_statement = PrettyTable()
         payment_statement.title = "Ignored Payments"
-        for transaction in self.is_payment:
+        for transaction in self.payments:
             payment_statement.field_names = [
                 "Date",
                 "Description",
@@ -150,4 +150,4 @@ class ReportGenerator:
                     f"{transaction.type}",
                 ]
             )
-        print(payment_statement)
+        return payment_statement
