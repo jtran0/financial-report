@@ -12,7 +12,7 @@ I will be updating this file to show you how to use this program.
 ./financial-tracker.py chase:~/statements/chase-2024-01-17.csv wellsfargo:~/statements/wellsfargo-2024-01-17.csv
 
 ## Example output
-{print a list of all transactions from all given statements}
+{print a prettytable of all transactions from all given statements}
 
 
 That is all that has been worked on.

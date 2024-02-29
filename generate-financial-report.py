@@ -41,10 +41,7 @@ def get_args():
     return argument_parser.parse_args()
 
 
-def main():
-    args = get_args()
-    report_generator = ReportGenerator()
-
+def process_input_files(args, report_generator):
     for bank, filepath in args.input:
         print(bank, filepath)
         if bank == "chase":
@@ -61,7 +58,18 @@ def main():
         elif bank == "wellsfargo":
             wells_fargo_transaction_parser = WellsFargoTransactionParser()
             wells_fargo_transaction_parser.parse_statement(filepath)
+
+
+def main():
+    args = get_args()
+    report_generator = ReportGenerator()
+    process_input_files(args, report_generator)
     report_generator.filter_transactions()
+    report_generator.generate_table()
+    report_generator.generate_expenses()
+    report_generator.generate_income()
+    report_generator.generate_payments()
+    report_generator.generate_net()
 
 
 if __name__ == "__main__":
